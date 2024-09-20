@@ -1,4 +1,3 @@
-import './style.css'
 import { Header } from 'components/Header'
 import { useState } from 'react'
 import { ICompany } from 'interfaces/companies'
