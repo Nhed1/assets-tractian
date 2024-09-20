@@ -1,6 +1,6 @@
-import { TractianIcon } from 'assets/icons'
+import { TractianIcon } from 'assets/icons/TractianIcon'
 import { MenuButton } from './MenuButton'
-import { ICompany } from 'interfaces/companies'
+import { ICompany } from 'features/Assets/interfaces/companies'
 import { Dispatch, SetStateAction } from 'react'
 
 interface IHeader {

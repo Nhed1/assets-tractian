@@ -1,9 +1,9 @@
-import { Header } from './Header'
+import { AssetsHeader } from './AssetsHeader/AssetsHeader'
 
 export function Container() {
   return (
     <div className="h-full bg-white">
-      <Header />
+      <AssetsHeader />
     </div>
   )
 }

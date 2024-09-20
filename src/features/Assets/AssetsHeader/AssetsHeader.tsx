@@ -1,6 +1,6 @@
 import { AssetStatus } from './AssetStatus'
 
-export function Header() {
+export function AssetsHeader() {
   return (
     <header className="flex h-12 items-center justify-between p-4">
       <div className="flex items-center">

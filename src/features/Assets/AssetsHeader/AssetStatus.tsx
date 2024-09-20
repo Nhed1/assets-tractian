@@ -1,5 +1,6 @@
-import { CriticalIcon, PowerIcon } from 'assets/icons'
 import { ReactElement } from 'react'
+import { PowerIcon } from './assets/PowerIcon'
+import { CriticalIcon } from './assets/CriticalIcon'
 
 type AssetType = 'powerSensor' | 'critical'
 

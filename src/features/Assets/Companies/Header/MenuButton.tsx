@@ -1,5 +1,5 @@
-import { CompanyIcon } from 'assets/icons'
-import { ICompany } from 'interfaces/companies'
+import { ICompany } from 'features/Assets/interfaces/companies'
+import { CompanyIcon } from '../assets/CompanyIcon'
 
 interface IMenuButton {
   company: ICompany
