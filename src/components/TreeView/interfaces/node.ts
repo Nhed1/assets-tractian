@@ -1,6 +1,10 @@
+import { ReactElement } from 'react'
+
 export interface INode {
   id: string
   name: string
+  sufix?: ReactElement
+  prefix?: ReactElement
   isHighlight?: boolean
   isExpanded?: boolean
   children?: INode[]

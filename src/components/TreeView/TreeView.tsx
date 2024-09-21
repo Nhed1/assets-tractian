@@ -1,3 +1,4 @@
+import { ArrowIcon } from './assets/ArrowIcon'
 import { INode } from './interfaces/node'
 import { TreeProvider } from './providers/TreeProvider'
 import { useTreeContext } from './providers/useTreeContext'
@@ -26,21 +27,26 @@ const TreeNode = ({ node }: { node: INode }) => {
   const { dispatch } = useTreeContext()
 
   return (
-    <div style={{ color: node.isHighlight ? 'red' : 'initial' }}>
-      {node.children && (
-        <button
-          onClick={() =>
-            dispatch({
-              type: 'TOGGLE_NODE',
-              id: node.id,
-              isExpanded: !node.isExpanded
-            })
-          }
-        >
-          {node.isExpanded ? '⮝' : '⮟'}
-        </button>
-      )}
-      <span>{node.name}</span>
+    <div className="flex-col ">
+      <div className="flex items-center space-x-1 pl-2">
+        {node.children && (
+          <button
+            onClick={() =>
+              dispatch({
+                type: 'TOGGLE_NODE',
+                id: node.id,
+                isExpanded: !node.isExpanded
+              })
+            }
+          >
+            <ArrowIcon isUp={node.isExpanded} />
+          </button>
+        )}
+
+        {node.prefix}
+        <p>{node.name}</p>
+        <div className="pl-1 pt-1">{node.sufix}</div>
+      </div>
       {node.isExpanded && (
         <div style={{ marginLeft: '20px' }}>
           {node.children?.map((child) => (
