@@ -11,7 +11,12 @@ interface IHeader {
 }
 
 export function Header({ companySelected, setCompanySelected }: IHeader) {
-  const { data: companies, isPending } = useGetCompanies()
+  const {
+    data: companies = [],
+    isPending,
+    isError,
+    refetch
+  } = useGetCompanies()
 
   const selectCompany = (company: ICompany) => {
     setCompanySelected(company)
@@ -24,15 +29,23 @@ export function Header({ companySelected, setCompanySelected }: IHeader) {
       <div className="flex gap-3">
         {isPending && <Loading />}
 
-        {!!companies &&
-          companies.map((company) => (
-            <MenuButton
-              selectCompany={selectCompany}
-              company={company}
-              key={company.id}
-              isSelected={company.id === companySelected?.id}
-            />
-          ))}
+        {isError && (
+          <button
+            className="rounded border border-white p-2 font-bold"
+            onClick={() => refetch()}
+          >
+            Tente novamente
+          </button>
+        )}
+
+        {companies.map((company) => (
+          <MenuButton
+            selectCompany={selectCompany}
+            company={company}
+            key={company.id}
+            isSelected={company.id === companySelected?.id}
+          />
+        ))}
       </div>
     </header>
   )
