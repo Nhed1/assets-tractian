@@ -29,7 +29,7 @@ const TreeNode = ({ node }: { node: INode }) => {
   return (
     <div className="flex-col py-3">
       <div className="flex items-center space-x-1 pl-2">
-        {node.children && (
+        {node.children?.length !== 0 && (
           <button
             onClick={() =>
               dispatch({

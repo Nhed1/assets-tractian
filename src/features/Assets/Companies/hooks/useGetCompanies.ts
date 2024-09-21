@@ -5,7 +5,7 @@ import { tractianApi } from 'service/tractianApi'
 const COMPANIES_QUERY_KEY = 'companies'
 
 async function getCompanies() {
-  const companies = await tractianApi.get('/companies')
+  const companies = await tractianApi.get('')
 
   return companies.data
 }
