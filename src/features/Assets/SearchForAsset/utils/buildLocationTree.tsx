@@ -1,3 +1,6 @@
+import { AssetIcon } from 'features/Assets/assets/AssetIcon'
+import { ComponentIcon } from 'features/Assets/assets/ComponentIcon'
+import { LocationIcon } from 'features/Assets/assets/LocationIcon'
 import { IAsset } from 'features/Assets/interfaces/assets'
 import { ILocation } from 'features/Assets/interfaces/locations'
 
@@ -21,7 +24,11 @@ export function buildLocationAssetsTree(
   const assetMap: { [key: string]: IAssetTree } = {}
 
   locations.forEach((location) => {
-    locationMap[location.id] = { ...location, children: [] }
+    locationMap[location.id] = {
+      ...location,
+      prefix: <LocationIcon />,
+      children: []
+    }
   })
 
   locations.forEach((location) => {
@@ -37,6 +44,12 @@ export function buildLocationAssetsTree(
 
   assets?.forEach((asset) => {
     assetMap[asset.id] = { ...asset, children: [] }
+
+    if (asset.sensorType) {
+      assetMap[asset.id].prefix = <ComponentIcon />
+    } else {
+      assetMap[asset.id].prefix = <AssetIcon />
+    }
 
     if (!asset.locationId && !asset.parentId) {
       rootLocations.push(assetMap[asset.id] as ILocationTree)

@@ -1,3 +1,5 @@
+import { ReactElement } from 'react'
+
 export interface IAsset {
   id: string
   name: string
@@ -7,4 +9,6 @@ export interface IAsset {
   gatewayId: string
   parentId?: string
   locationId?: string
+  prefix?: ReactElement
+  sufix?: ReactElement
 }

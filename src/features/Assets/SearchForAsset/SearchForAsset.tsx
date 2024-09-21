@@ -11,7 +11,7 @@ export function SearchForAsset() {
   const { assetsTree, isLoadingTree } = useFormatAssetsTree(companySelected?.id)
 
   return (
-    <div className="flex w-1/3 flex-col border border-gray-400">
+    <div className="flex w-2/5 flex-col border border-gray-400">
       <Input
         type="text"
         placeholder="Buscar Ativo ou Local"
