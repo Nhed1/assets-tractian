@@ -1,6 +1,8 @@
 import { TreeView } from 'components/TreeView'
 import { LocationIcon } from '../assets/LocationIcon'
 import { Status } from '../assets/Status'
+import { Input } from 'components/Input'
+import { SearchIcon } from '../assets/SearchIcon'
 
 const data = [
   {
@@ -26,6 +28,12 @@ const data = [
 export function SearchForAsset() {
   return (
     <div className="flex h-[calc(100%-3rem)] w-1/3 flex-col border border-gray-400">
+      <Input
+        type="text"
+        placeholder="Buscar Ativo ou Local"
+        sufix={<SearchIcon />}
+      />
+
       <TreeView initialData={data} />
     </div>
   )
