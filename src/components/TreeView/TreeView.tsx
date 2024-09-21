@@ -27,7 +27,7 @@ const TreeNode = ({ node }: { node: INode }) => {
   const { dispatch } = useTreeContext()
 
   return (
-    <div className="flex-col ">
+    <div className="flex-col py-3">
       <div className="flex items-center space-x-1 pl-2">
         {node.children && (
           <button
