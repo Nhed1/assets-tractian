@@ -2,28 +2,17 @@ import { TractianIcon } from 'assets/icons/TractianIcon'
 import { MenuButton } from './MenuButton'
 import { ICompany } from 'features/Assets/interfaces/companies'
 import { Dispatch, SetStateAction } from 'react'
+import { useGetCompanies } from '../hooks'
+import { Loading } from 'components/Loading'
 
 interface IHeader {
   companySelected: ICompany | undefined
   setCompanySelected: Dispatch<SetStateAction<ICompany | undefined>>
 }
 
-const COMPANIES = [
-  {
-    id: '662fd0ee639069143a8fc387',
-    name: 'Jaguar'
-  },
-  {
-    id: '662fd0fab3fd5656edb39af5',
-    name: 'Tobias'
-  },
-  {
-    id: '662fd100f990557384756e58',
-    name: 'Apex'
-  }
-]
-
 export function Header({ companySelected, setCompanySelected }: IHeader) {
+  const { data: companies, isPending } = useGetCompanies()
+
   const selectCompany = (company: ICompany) => {
     setCompanySelected(company)
   }
@@ -33,14 +22,17 @@ export function Header({ companySelected, setCompanySelected }: IHeader) {
       <TractianIcon />
 
       <div className="flex gap-3">
-        {COMPANIES.map((company) => (
-          <MenuButton
-            selectCompany={selectCompany}
-            company={company}
-            key={company.id}
-            isSelected={company.id === companySelected?.id}
-          />
-        ))}
+        {isPending && <Loading />}
+
+        {!!companies &&
+          companies.map((company) => (
+            <MenuButton
+              selectCompany={selectCompany}
+              company={company}
+              key={company.id}
+              isSelected={company.id === companySelected?.id}
+            />
+          ))}
       </div>
     </header>
   )
