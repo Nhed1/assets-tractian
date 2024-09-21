@@ -4,6 +4,8 @@ import { INode, TreeAction } from '../interfaces/node'
 interface ITreeContext {
   state: INode[]
   dispatch: Dispatch<TreeAction>
+  selectNode: (node: INode) => void
+  node?: INode
 }
 
 export const TreeContext = createContext<ITreeContext | null>(null)

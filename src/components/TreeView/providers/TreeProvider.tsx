@@ -5,16 +5,20 @@ import { INode } from '../interfaces/node'
 
 export const TreeProvider = ({
   children,
-  initialData
+  initialData,
+  selectNode,
+  node
 }: {
   children: ReactElement
   initialData: INode[]
+  selectNode: (node: INode) => void
+  node?: INode
 }) => {
   const { treeReducer } = useTree()
   const [state, dispatch] = useReducer(treeReducer, initialData)
 
   return (
-    <TreeContext.Provider value={{ state, dispatch }}>
+    <TreeContext.Provider value={{ state, dispatch, selectNode, node }}>
       {children}
     </TreeContext.Provider>
   )

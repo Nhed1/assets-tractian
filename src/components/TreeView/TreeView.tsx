@@ -3,9 +3,17 @@ import { INode } from './interfaces/node'
 import { TreeProvider } from './providers/TreeProvider'
 import { useTreeContext } from './providers/useTreeContext'
 
-export function TreeView({ initialData }: { initialData: INode[] }) {
+export function TreeView({
+  initialData,
+  selectNode,
+  node
+}: {
+  initialData: INode[]
+  selectNode: (node: INode) => void
+  node?: INode
+}) {
   return (
-    <TreeProvider initialData={initialData}>
+    <TreeProvider initialData={initialData} selectNode={selectNode} node={node}>
       <TreeViewContent />
     </TreeProvider>
   )
@@ -24,7 +32,7 @@ const TreeViewContent = () => {
 }
 
 const TreeNode = ({ node }: { node: INode }) => {
-  const { dispatch } = useTreeContext()
+  const { dispatch, selectNode, node: nodeSelected } = useTreeContext()
 
   return (
     <div className="flex-col py-1">
@@ -43,9 +51,26 @@ const TreeNode = ({ node }: { node: INode }) => {
           </button>
         )}
 
-        {node.prefix}
-        <p>{node.name}</p>
-        <div className="pl-1 pt-1">{node.sufix}</div>
+        <div
+          className={`flex w-full items-center pt-1  ${
+            node.sufix && 'cursor-pointer '
+          } ${nodeSelected?.id === node.id && 'bg-blue-500 text-white'}`}
+          onClick={() => {
+            if (node.sufix) selectNode(node)
+          }}
+        >
+          <div
+            className={`${
+              node.sufix && nodeSelected?.id === node.id
+                ? 'text-white'
+                : 'text-blue-500'
+            }`}
+          >
+            {node.prefix}
+          </div>
+          <p>{node.name}</p>
+          <div className="pl-2">{node.sufix}</div>
+        </div>
       </div>
       {node.isExpanded && (
         <div style={{ marginLeft: '20px' }}>
