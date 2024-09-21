@@ -27,7 +27,7 @@ const data = [
 
 export function SearchForAsset() {
   return (
-    <div className="flex h-[calc(100%-3rem)] w-1/3 flex-col border border-gray-400">
+    <div className="flex w-1/3 flex-col border border-gray-400">
       <Input
         type="text"
         placeholder="Buscar Ativo ou Local"
