@@ -1,4 +1,8 @@
+import { useComponentContext } from '../Container/providers'
+
 export function AssetPanel() {
+  const { componentSelected } = useComponentContext()
+  console.log(componentSelected)
   return (
     <div className="flex w-2/3 flex-col border border-gray-400">
       <p className="border-b border-gray-400 p-4 text-2xl font-semibold">
