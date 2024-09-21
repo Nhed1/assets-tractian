@@ -12,7 +12,7 @@ async function getLocations(companyId?: string) {
 
 export function useGetLocations(companyId?: string) {
   return useQuery<ILocation[]>({
-    queryKey: [LOCATIONS_QUERY_KEY],
+    queryKey: [LOCATIONS_QUERY_KEY, companyId],
     queryFn: () => getLocations(companyId),
     enabled: !!companyId
   })

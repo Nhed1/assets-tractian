@@ -12,7 +12,7 @@ async function getAssets(companyId?: string) {
 
 export function useGetAssets(companyId?: string) {
   return useQuery<IAsset[]>({
-    queryKey: [ASSETS_QUERY_KEY],
+    queryKey: [ASSETS_QUERY_KEY, companyId],
     queryFn: () => getAssets(companyId),
     enabled: !!companyId
   })

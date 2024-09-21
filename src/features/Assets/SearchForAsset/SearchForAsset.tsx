@@ -7,7 +7,7 @@ import { useFormatAssetsTree } from './hooks/useFormatAssetsTree'
 
 export function SearchForAsset() {
   const { companySelected } = useCompanyContext()
-  const { locationsTree } = useFormatAssetsTree(companySelected?.id)
+  const { assetsTree } = useFormatAssetsTree(companySelected?.id)
 
   return (
     <div className="flex w-1/3 flex-col border border-gray-400">
@@ -17,7 +17,7 @@ export function SearchForAsset() {
         sufix={<SearchIcon />}
       />
 
-      {locationsTree && <TreeView initialData={locationsTree} />}
+      {assetsTree && <TreeView initialData={assetsTree} />}
     </div>
   )
 }
