@@ -1,21 +1,17 @@
-import { useState } from 'react'
 import { Header } from './Companies/Header'
-import { ICompany } from './interfaces/companies'
 import { Container } from './Container'
+import { CompanyProvider } from './providers'
 
 export function Assets() {
-  const [companySelected, setCompanySelected] = useState<ICompany | undefined>()
-
   return (
-    <div className="flex h-screen flex-col">
-      <Header
-        companySelected={companySelected}
-        setCompanySelected={setCompanySelected}
-      />
+    <CompanyProvider>
+      <div className="flex h-screen flex-col">
+        <Header />
 
-      <div className="flex-1 bg-gray-400 p-4">
-        <Container />
+        <div className="flex-1 bg-gray-400 p-4">
+          <Container />
+        </div>
       </div>
-    </div>
+    </CompanyProvider>
   )
 }
