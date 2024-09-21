@@ -1,6 +1,8 @@
 import { AssetIcon } from 'features/Assets/assets/AssetIcon'
 import { ComponentIcon } from 'features/Assets/assets/ComponentIcon'
 import { LocationIcon } from 'features/Assets/assets/LocationIcon'
+import { PowerStatusIcon } from 'features/Assets/assets/PowerStatusIcon'
+import { StatusIcon } from 'features/Assets/assets/StatusIcon'
 import { IAsset } from 'features/Assets/interfaces/assets'
 import { ILocation } from 'features/Assets/interfaces/locations'
 
@@ -47,6 +49,18 @@ export function buildLocationAssetsTree(
 
     if (asset.sensorType) {
       assetMap[asset.id].prefix = <ComponentIcon />
+
+      if (asset.sensorType === 'energy') {
+        assetMap[asset.id].sufix = (
+          <PowerStatusIcon isError={asset.status === 'alert'} />
+        )
+      }
+
+      if (asset.sensorType === 'vibration') {
+        assetMap[asset.id].sufix = (
+          <StatusIcon isError={asset.status === 'alert'} />
+        )
+      }
     } else {
       assetMap[asset.id].prefix = <AssetIcon />
     }

@@ -1,4 +1,4 @@
-export function Status({ isError = true }) {
+export function StatusIcon({ isError = true }) {
   return (
     <svg
       width="8"
