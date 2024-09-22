@@ -29,6 +29,7 @@ export function buildLocationAssetsTree(
     locationMap[location.id] = {
       ...location,
       prefix: <LocationIcon />,
+      isHighlight: false,
       children: []
     }
   })
@@ -45,7 +46,7 @@ export function buildLocationAssetsTree(
   })
 
   assets?.forEach((asset) => {
-    assetMap[asset.id] = { ...asset, children: [] }
+    assetMap[asset.id] = { ...asset, children: [], isHighlight: false }
 
     if (asset.sensorType) {
       assetMap[asset.id].prefix = <ComponentIcon />

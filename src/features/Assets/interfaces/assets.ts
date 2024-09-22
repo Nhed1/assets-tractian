@@ -9,6 +9,7 @@ export interface IAsset {
   gatewayId: string
   parentId?: string
   locationId?: string
+  isHighlight?: boolean
   prefix?: ReactElement
   sufix?: ReactElement
 }

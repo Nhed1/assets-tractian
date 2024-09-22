@@ -5,4 +5,5 @@ export interface ILocation {
   name: string
   parentId?: string
   prefix?: ReactElement
+  isHighlight?: boolean
 }

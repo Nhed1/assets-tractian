@@ -1,7 +1,10 @@
+import { Input } from 'components/Input'
 import { ArrowIcon } from './assets/ArrowIcon'
 import { INode } from './interfaces/node'
 import { TreeProvider } from './providers/TreeProvider'
 import { useTreeContext } from './providers/useTreeContext'
+import { SearchIcon } from 'features/Assets/assets/SearchIcon'
+import { useState } from 'react'
 
 export function TreeView({
   initialData,
@@ -20,22 +23,36 @@ export function TreeView({
 }
 
 const TreeViewContent = () => {
-  const { state } = useTreeContext()
+  const { state, dispatch } = useTreeContext()
+  const [search, setSearch] = useState('')
 
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const search = event.target.value
+    setSearch(search)
+
+    dispatch({ type: 'SEARCH', query: search })
+  }
   return (
     <div>
+      <Input
+        type="text"
+        value={search}
+        placeholder="Buscar Ativo ou Local"
+        onChange={handleSearch}
+        sufix={<SearchIcon />}
+      />
       {state.map((node) => (
-        <TreeNode key={node.id} node={node} />
+        <TreeNode key={node.id} node={node} search={search} />
       ))}
     </div>
   )
 }
 
-const TreeNode = ({ node }: { node: INode }) => {
+const TreeNode = ({ node, search }: { node: INode; search?: string }) => {
   const { dispatch, selectNode, node: nodeSelected } = useTreeContext()
 
   return (
-    <div className="flex-col py-1">
+    <div className={`flex-col py-1 ${!node.isHighlight && search && 'hidden'}`}>
       <div className="flex items-center space-x-1 pl-2">
         {node.children?.length !== 0 && (
           <button
