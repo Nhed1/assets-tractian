@@ -42,17 +42,17 @@ const TreeViewContent = () => {
         sufix={<SearchIcon />}
       />
       {state.map((node) => (
-        <TreeNode key={node.id} node={node} search={search} />
+        <TreeNode key={node.id} node={node} />
       ))}
     </div>
   )
 }
 
-const TreeNode = ({ node, search }: { node: INode; search?: string }) => {
+const TreeNode = ({ node }: { node: INode }) => {
   const { dispatch, selectNode, node: nodeSelected } = useTreeContext()
 
   return (
-    <div className={`flex-col py-1 ${!node.isHighlight && search && 'hidden'}`}>
+    <div className={`flex-col py-1 ${!node.isHighlight && 'hidden'}`}>
       <div className="flex items-center space-x-1 pl-2">
         {node.children?.length !== 0 && (
           <button

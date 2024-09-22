@@ -22,6 +22,16 @@ export const useTree = () => {
     nodes: INode[],
     query: string
   ): INode[] => {
+    if (!query) {
+      nodes.forEach((node) => {
+        node.isHighlight = true
+        if (node.children) {
+          searchNodesAndUpdateHighlight(node.children, query)
+        }
+      })
+      return nodes
+    }
+
     nodes.forEach((node) => {
       const shouldHighlight =
         query.length > 0
