@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useReducer } from 'react'
+import { ReactElement, useEffect, useReducer, useRef } from 'react'
 import { useTree } from '../hooks/useTree'
 import { TreeContext } from './useTreeContext'
 import { INode } from '../interfaces/node'
@@ -16,9 +16,16 @@ export const TreeProvider = ({
 }) => {
   const { treeReducer } = useTree()
   const [state, dispatch] = useReducer(treeReducer, initialData)
+  const prevDataRef = useRef<INode[]>([])
 
   useEffect(() => {
-    dispatch({ type: 'INIT_DATA', data: initialData })
+    const refKeys = Object.keys(prevDataRef.current)
+    const initialDataKeys = Object.keys(initialData)
+
+    if (refKeys.length !== initialDataKeys.length) {
+      dispatch({ type: 'INIT_DATA', data: initialData })
+      prevDataRef.current = initialData
+    }
   }, [initialData])
 
   return (
