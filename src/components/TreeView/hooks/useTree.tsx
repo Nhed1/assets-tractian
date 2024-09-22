@@ -18,19 +18,6 @@ export const useTree = () => {
     })
   }
 
-  const updateAllNodes = (nodes: INode[], isExpanded: boolean): INode[] => {
-    return nodes.map((node) => {
-      if (node.children) {
-        return {
-          ...node,
-          isExpanded,
-          children: updateAllNodes(node.children, isExpanded)
-        }
-      }
-      return { ...node, isExpanded }
-    })
-  }
-
   const searchNodesAndUpdateHighlight = (
     nodes: INode[],
     query: string
@@ -60,10 +47,6 @@ export const useTree = () => {
         return action.data
       case 'TOGGLE_NODE':
         return toggleNode(state, action.id, action.isExpanded)
-      case 'EXPAND_ALL':
-        return updateAllNodes(state, true)
-      case 'COLLAPSE_ALL':
-        return updateAllNodes(state, false)
       case 'SEARCH':
         return searchNodesAndUpdateHighlight(state, action.query)
       default:
