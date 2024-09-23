@@ -1,6 +1,7 @@
 export function TractianIcon() {
   return (
     <svg
+      data-testid="tractian-icon"
       width="103"
       height="14"
       viewBox="0 0 103 14"

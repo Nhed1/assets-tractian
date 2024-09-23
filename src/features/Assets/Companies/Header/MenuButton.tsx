@@ -12,6 +12,7 @@ export function MenuButton({ company }: IMenuButton) {
 
   return (
     <button
+      data-testid="company-button"
       onClick={() => setCompanySelected(company)}
       className={`${
         isSelected ? 'bg-blue-500' : 'bg-blue-700'
