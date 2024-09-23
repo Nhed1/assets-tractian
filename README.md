@@ -1,12 +1,21 @@
-![reactjs-vite-tailwindcss-boilerplate](https://user-images.githubusercontent.com/16243531/217138979-b854309c-4742-4275-a705-f9fec5158217.jpg)
+<br />
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="src/assets/logo.svg" alt="Logo" width="80" height="80">
+  </a>
 
-# React Tailwindcss Boilerplate build with Vite
+  <h3 align="center">Tractian - Front End Software Engineer Challenge</h3>
 
-This is a boilerplate build with Vite, React 18, TypeScript, Vitest, Testing Library, TailwindCSS 3, Eslint and Prettier.
+  <p>
+    Assets are essential to the operation of the industry, it can include everything from manufacturing equipment to transportation vehicles to power generation systems. Proper management and maintenance is crucial to ensure that they continue to operate efficiently and effectively. A practical way to visualize the hierarchy of assets is through a tree structure.
+  </p>
+</div>
 
-## What is inside?
+## About The Project
 
-This project uses many tools like:
+[Vídeo demonstrativo no Loom](https://www.loom.com/share/68b11975289f4b57982f859c613cb669?sid=95a53dab-1fa7-4eeb-a89d-c678e2d6044a)
+
+### Built With
 
 - [Vite](https://vitejs.dev)
 - [ReactJS](https://reactjs.org)
@@ -15,66 +24,36 @@ This project uses many tools like:
 - [Testing Library](https://testing-library.com)
 - [Tailwindcss](https://tailwindcss.com)
 - [Eslint](https://eslint.org)
-- [Prettier](https://prettier.io)
+- [TanStack](https://tanstack.com/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Getting Started
 
-### Install
+### Installation
 
-Create the project.
+Clone the repo
 
-```bash
-pnpm dlx degit joaopaulomoraes/reactjs-vite-tailwindcss-boilerplate my-app
+```sh
+git clone https://github.com/Nhed1/assets-tractian.git
 ```
 
-Access the project directory.
+Install NPM packages
 
-```bash
-cd my-app
+```sh
+npm install
 ```
 
-Install dependencies.
+Run the project
 
-```bash
-pnpm install
+```sh
+npm run dev
 ```
 
-Serve with hot reload at <http://localhost:5173>.
+Run the tests
 
-```bash
-pnpm run dev
+```sh
+npm run test:ui
 ```
 
-### Lint
-
-```bash
-pnpm run lint
-```
-
-### Typecheck
-
-```bash
-pnpm run typecheck
-```
-
-### Build
-
-```bash
-pnpm run build
-```
-
-### Test
-
-```bash
-pnpm run test
-```
-
-View and interact with your tests via UI.
-
-```bash
-pnpm run test:ui
-```
-
-## License
-
-This project is licensed under the MIT License.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
