@@ -1,13 +1,14 @@
 import { useComponentContext } from '../Container/providers'
 import { GatewayIcon } from './assets/GatewayIcon'
-import { ImageIcon } from './assets/ImageIcon'
 import { SensorIcon } from './assets/SensorIcon'
 import { useFormatComponentSelected } from './hooks/useFormatComponentSelected'
 import { InformationText } from './InformationText'
+import { UploadImage } from './UploadImage'
 
 export function AssetPanel() {
   const { componentSelected } = useComponentContext()
   const { componentFormatted } = useFormatComponentSelected(componentSelected)
+
   return (
     <div className="flex w-2/3 flex-col border border-gray-400">
       <p className="flex items-center space-x-2 border-b border-gray-400 p-4 text-2xl font-semibold">
@@ -16,12 +17,7 @@ export function AssetPanel() {
       </p>
 
       <div className="mt-4 flex h-80 space-x-6 p-6">
-        <div className="flex h-full  w-[500px] items-center justify-center border border-dashed border-blue-500 bg-blue-50 text-blue-400">
-          <div className="flex flex-col items-center">
-            <ImageIcon />
-            <p className="text-center">Adicionar imagem do Ativo</p>
-          </div>
-        </div>
+        <UploadImage />
 
         <div className="w-full space-y-8 self-center">
           <InformationText
