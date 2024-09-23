@@ -4,34 +4,45 @@ import { INode } from './interfaces/node'
 import { TreeProvider } from './providers/TreeProvider'
 import { useTreeContext } from './providers/useTreeContext'
 import { SearchIcon } from 'features/Assets/assets/SearchIcon'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { TFilter } from 'features/Assets/interfaces/filter'
 
 export function TreeView({
   initialData,
   selectNode,
-  node
+  node,
+  filter
 }: {
   initialData: INode[]
   selectNode: (node: INode) => void
   node?: INode
+  filter: TFilter
 }) {
   return (
     <TreeProvider initialData={initialData} selectNode={selectNode} node={node}>
-      <TreeViewContent />
+      <TreeViewContent filter={filter} />
     </TreeProvider>
   )
 }
 
-const TreeViewContent = () => {
+const TreeViewContent = ({ filter }: { filter: TFilter }) => {
   const { state, dispatch } = useTreeContext()
   const [search, setSearch] = useState('')
-
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value
     setSearch(search)
 
     dispatch({ type: 'SEARCH', query: search })
   }
+
+  useEffect(() => {
+    dispatch({
+      type: 'FILTER',
+      isSensorTypeEnergy: filter === 'energy',
+      isStatusAlert: filter === 'alert'
+    })
+  }, [filter, dispatch])
+
   return (
     <div>
       <Input

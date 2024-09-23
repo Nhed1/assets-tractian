@@ -5,8 +5,9 @@ import { Loading } from 'components/Loading'
 import { INode } from 'components/TreeView/interfaces/node'
 import { useCompanyContext } from '../providers'
 import { useComponentContext } from '../Container/providers'
+import { TFilter } from '../interfaces/filter'
 
-export function SearchForAsset() {
+export function SearchForAsset({ filter }: { filter: TFilter }) {
   const { companySelected } = useCompanyContext()
   const { componentSelected, setComponentSelected } = useComponentContext()
   const { assetsTree, isLoadingTree } = useFormatAssetsTree(companySelected?.id)
@@ -24,6 +25,7 @@ export function SearchForAsset() {
           initialData={assetsTree}
           selectNode={setComponentSelected as (component: INode) => void}
           node={componentSelected}
+          filter={filter}
         />
       )}
     </div>

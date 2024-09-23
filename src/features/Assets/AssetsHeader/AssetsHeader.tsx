@@ -1,8 +1,19 @@
+import { TFilter } from '../interfaces/filter'
 import { useCompanyContext } from '../providers'
 import { AssetStatus } from './AssetStatus'
 
-export function AssetsHeader() {
+export function AssetsHeader({
+  filter,
+  setFilter
+}: {
+  filter: TFilter
+  setFilter: (filter: TFilter) => void
+}) {
   const { companySelected } = useCompanyContext()
+
+  const handleFilterClick = (type: TFilter) => {
+    setFilter(filter === type ? null : type)
+  }
 
   return (
     <header className="flex h-12 items-center justify-between">
@@ -14,8 +25,17 @@ export function AssetsHeader() {
       </div>
 
       <div className="flex space-x-2">
-        <AssetStatus type="powerSensor" isActive />
-        <AssetStatus type="critical" />
+        <AssetStatus
+          type="energy"
+          isActive={filter === 'energy'}
+          onClick={() => handleFilterClick('energy')}
+        />
+
+        <AssetStatus
+          type="alert"
+          isActive={filter === 'alert'}
+          onClick={() => handleFilterClick('alert')}
+        />
       </div>
     </header>
   )

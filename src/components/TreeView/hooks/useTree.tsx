@@ -1,5 +1,10 @@
 import { INode, TreeAction } from '../interfaces/node'
 
+interface INodeAsset extends INode {
+  status?: 'alert'
+  sensorType?: 'energy'
+}
+
 export const useTree = () => {
   const toggleNode = (
     nodes: INode[],
@@ -16,6 +21,53 @@ export const useTree = () => {
 
       return node
     })
+  }
+
+  const filterNodesByStatusAndSensorType = (
+    nodes: INodeAsset[],
+    isStatusAlert: boolean,
+    isSensorTypeEnergy: boolean
+  ): INode[] => {
+    if (!isStatusAlert && !isSensorTypeEnergy) {
+      nodes.forEach((node) => {
+        node.isHighlight = true
+        if (node.children) {
+          filterNodesByStatusAndSensorType(
+            node.children,
+            isStatusAlert,
+            isSensorTypeEnergy
+          )
+        }
+      })
+      return nodes
+    }
+
+    nodes.forEach((node) => {
+      let shouldHighlight = false
+
+      if (isStatusAlert) {
+        shouldHighlight = node.status === 'alert'
+      }
+
+      if (isSensorTypeEnergy) {
+        shouldHighlight = node.sensorType === 'energy'
+      }
+
+      node.isHighlight = shouldHighlight
+
+      if (node.children) {
+        filterNodesByStatusAndSensorType(
+          node.children,
+          isStatusAlert,
+          isSensorTypeEnergy
+        )
+        if (node.children.some((child) => child.isHighlight)) {
+          node.isHighlight = true
+        }
+      }
+    })
+
+    return nodes
   }
 
   const searchNodesAndUpdateHighlight = (
@@ -59,6 +111,12 @@ export const useTree = () => {
         return toggleNode(state, action.id, action.isExpanded)
       case 'SEARCH':
         return searchNodesAndUpdateHighlight(state, action.query)
+      case 'FILTER':
+        return filterNodesByStatusAndSensorType(
+          [...state],
+          action.isStatusAlert,
+          action.isSensorTypeEnergy
+        )
       default:
         return state
     }

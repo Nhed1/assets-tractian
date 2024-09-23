@@ -2,27 +2,27 @@ import { ReactElement } from 'react'
 import { PowerIcon } from './assets/PowerIcon'
 import { CriticalIcon } from './assets/CriticalIcon'
 
-type AssetType = 'powerSensor' | 'critical'
-
 interface IAssetStatus {
   isActive?: boolean
-  type: AssetType
+  type: 'alert' | 'energy'
+  onClick: () => void
 }
 
-export function AssetStatus({ isActive, type = 'powerSensor' }: IAssetStatus) {
+export function AssetStatus({ isActive, type, onClick }: IAssetStatus) {
   const ASSET_TYPE: Record<
-    AssetType,
+    'alert' | 'energy',
     { text: string; component: ReactElement }
   > = {
-    critical: { text: 'Crítico', component: <CriticalIcon /> },
-    powerSensor: {
+    alert: { text: 'Crítico', component: <CriticalIcon /> },
+    energy: {
       text: 'Sensor de energia',
       component: <PowerIcon />
     }
   }
 
   return (
-    <div
+    <button
+      onClick={onClick}
       className={` flex items-center justify-center space-x-2 border
         border-gray-400 font-semibold
         ${isActive ? 'bg-blue-500 text-white' : 'text-gray-600'}
@@ -33,6 +33,6 @@ export function AssetStatus({ isActive, type = 'powerSensor' }: IAssetStatus) {
         {ASSET_TYPE[type].component}
       </div>
       <p>{ASSET_TYPE[type].text}</p>
-    </div>
+    </button>
   )
 }
