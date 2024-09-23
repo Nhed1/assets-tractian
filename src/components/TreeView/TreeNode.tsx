@@ -10,6 +10,7 @@ export function TreeNode({ node }: { node: INode }) {
       <div className="flex items-center space-x-1 pl-2">
         {node.children?.length !== 0 && (
           <button
+            data-testid="toggle-node"
             onClick={() =>
               dispatch({
                 type: 'TOGGLE_NODE',
