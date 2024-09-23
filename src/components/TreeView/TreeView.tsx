@@ -52,9 +52,12 @@ const TreeViewContent = ({ filter }: { filter: TFilter }) => {
         onChange={handleSearch}
         sufix={<SearchIcon />}
       />
-      {state.map((node) => (
-        <TreeNode key={node.id} node={node} />
-      ))}
+
+      <div className="max-h-[500px] overflow-auto">
+        {state.map((node) => (
+          <TreeNode key={node.id} node={node} />
+        ))}
+      </div>
     </div>
   )
 }
