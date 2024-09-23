@@ -78,4 +78,13 @@ describe('Header', () => {
     const loading = screen.getByRole('status')
     expect(loading).toBeInTheDocument()
   })
+
+  it('should render with first company selected', async () => {
+    await mockCompanies([{ id: '1', name: 'company 1' }])
+
+    renderHeader()
+
+    const buttons = screen.getAllByTestId('company-button')
+    expect(buttons[0]).toHaveClass('bg-blue-500')
+  })
 })
