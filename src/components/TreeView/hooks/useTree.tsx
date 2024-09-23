@@ -28,32 +28,22 @@ export const useTree = () => {
     isStatusAlert: boolean,
     isSensorTypeEnergy: boolean
   ): INode[] => {
-    if (!isStatusAlert && !isSensorTypeEnergy) {
-      nodes.forEach((node) => {
-        node.isHighlight = true
-        if (node.children) {
-          filterNodesByStatusAndSensorType(
-            node.children,
-            isStatusAlert,
-            isSensorTypeEnergy
-          )
-        }
-      })
-      return nodes
-    }
-
     nodes.forEach((node) => {
-      let shouldHighlight = false
+      let matchesFilter = true
 
       if (isStatusAlert) {
-        shouldHighlight = node.status === 'alert'
+        matchesFilter = node.status === 'alert'
       }
 
       if (isSensorTypeEnergy) {
-        shouldHighlight = node.sensorType === 'energy'
+        matchesFilter = matchesFilter && node.sensorType === 'energy'
       }
 
-      node.isHighlight = shouldHighlight
+      node.matchesFilter = matchesFilter
+
+      if (node.matchesSearch === undefined) {
+        node.matchesSearch = true
+      }
 
       if (node.children) {
         filterNodesByStatusAndSensorType(
@@ -61,9 +51,6 @@ export const useTree = () => {
           isStatusAlert,
           isSensorTypeEnergy
         )
-        if (node.children.some((child) => child.isHighlight)) {
-          node.isHighlight = true
-        }
       }
     })
 
@@ -74,26 +61,32 @@ export const useTree = () => {
     nodes: INode[],
     query: string
   ): INode[] => {
-    if (!query) {
-      nodes.forEach((node) => {
-        node.isHighlight = true
-        if (node.children) {
-          searchNodesAndUpdateHighlight(node.children, query)
-        }
-      })
-      return nodes
-    }
-
     nodes.forEach((node) => {
-      const shouldHighlight =
+      const matchesSearch =
         query.length > 0
           ? node.name.toLowerCase().includes(query.toLowerCase())
-          : false
+          : true
 
-      node.isHighlight = shouldHighlight
+      node.matchesSearch = matchesSearch
+
+      if (node.matchesFilter === undefined) {
+        node.matchesFilter = true
+      }
 
       if (node.children) {
         searchNodesAndUpdateHighlight(node.children, query)
+      }
+    })
+
+    return nodes
+  }
+
+  const updateHighlightBasedOnSearchAndFilter = (nodes: INode[]): INode[] => {
+    nodes.forEach((node) => {
+      node.isHighlight = node.matchesFilter && node.matchesSearch
+
+      if (node.children) {
+        updateHighlightBasedOnSearchAndFilter(node.children)
         if (node.children.some((child) => child.isHighlight)) {
           node.isHighlight = true
         }
@@ -107,16 +100,28 @@ export const useTree = () => {
     switch (action.type) {
       case 'INIT_DATA':
         return action.data
-      case 'TOGGLE_NODE':
+
+      case 'TOGGLE_NODE': {
         return toggleNode(state, action.id, action.isExpanded)
-      case 'SEARCH':
-        return searchNodesAndUpdateHighlight(state, action.query)
-      case 'FILTER':
-        return filterNodesByStatusAndSensorType(
+      }
+
+      case 'SEARCH': {
+        const searchedState = searchNodesAndUpdateHighlight(
+          [...state],
+          action.query
+        )
+        return updateHighlightBasedOnSearchAndFilter(searchedState)
+      }
+
+      case 'FILTER': {
+        const filteredState = filterNodesByStatusAndSensorType(
           [...state],
           action.isStatusAlert,
           action.isSensorTypeEnergy
         )
+        return updateHighlightBasedOnSearchAndFilter(filteredState)
+      }
+
       default:
         return state
     }

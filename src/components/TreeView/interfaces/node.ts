@@ -8,6 +8,8 @@ export interface INode {
   isHighlight?: boolean
   isExpanded?: boolean
   children?: INode[]
+  matchesSearch?: boolean
+  matchesFilter?: boolean
 }
 
 export type TreeAction =
