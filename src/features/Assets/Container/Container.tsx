@@ -11,7 +11,7 @@ export function Container() {
     <div className="h-full bg-white p-4">
       <AssetsHeader filter={filter} setFilter={setFilter} />
 
-      <div className="mt-4 flex h-[calc(100%-3rem)] w-full space-x-3 pb-4">
+      <div className="mt-4 flex h-[calc(100vh-12rem)] w-full space-x-3 pb-4">
         <ComponentProvider>
           <SearchForAsset filter={filter} />
           <AssetPanel />

@@ -13,7 +13,7 @@ export function SearchForAsset({ filter }: { filter: TFilter }) {
   const { assetsTree, isLoadingTree } = useFormatAssetsTree(companySelected?.id)
 
   return (
-    <div className="flex w-2/5 flex-col border border-gray-400">
+    <div className="flex h-full w-2/5 flex-col overflow-auto border border-gray-400">
       {isLoadingTree && (
         <div className="mt-6 flex flex-1 justify-center">
           <Loading />
