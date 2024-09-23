@@ -15,6 +15,8 @@
 
 [Video of the project on Loom](https://www.loom.com/share/68b11975289f4b57982f859c613cb669?sid=95a53dab-1fa7-4eeb-a89d-c678e2d6044a)
 
+[Try out the project here](https://assets-tractian.vercel.app/)
+
 <strong>What I would improve with more time:</strong>
 
 <strong> Increase test coverage:</strong> I would expand the test suite to cover more parts of the codebase, including edge cases, ensuring higher reliability.
